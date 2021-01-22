@@ -38,9 +38,10 @@ class ValidateNickname {
     else {
       correctWordParameter.isNotContainSpace = true;
     }
-    print("글자수:${correctWordParameter.is28Characters}");
-    print("공백포함X:${correctWordParameter.isNotContainSpace}");
-    print("특수문자포함X:${correctWordParameter.isNotContainSpecial}");
+    print("글자수:${
+        correctWordParameter.is28Characters}");
+    print("공백 포함X:${correctWordParameter.isNotContainSpace}");
+    print("특수문자 포함X:${correctWordParameter.isNotContainSpecial}");
     print(correctWordParameter.getIsCorrected());
     return correctWordParameter;
   }

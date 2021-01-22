@@ -21,229 +21,240 @@ class _MainHomePageState extends State<MainHomePage>
   @override
   Widget build(BuildContext context) {
     AboutTime timer = Provider.of<AboutTime>(context, listen: false);
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      padding:
-          EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0, bottom: 20.0),
-      decoration: BoxDecoration(color: Colors.black),
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Image.asset("assets/png/timer_logo.png", height: 50),
-              Container(
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width / 5.2,
-                  height: 30,
-                  child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0)),
-                      color: Color(0xFFB69FF7),
-                      child: Text(
-                        "집중 모드",
-                        style: TextStyle(
-                            fontSize: 10.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () async {
-                        setState(() {
-                          count ++;
-                        });
-                        List<dynamic> result;
-                        Future<List<dynamic>> future1 = _getPastTime();
-                        await future1.then((value) => result = value,
-                            onError: (e) => print(e));
-                        for (int i = 0; i < result.length; i++) {
-                          print(result[i]["focusTime"]);
-                          times.add(result[i]["focusTime"]);
-                        }
-                        setState(() {
-                          _bottomSheetOpened = true;
-                        });
-                        Future<int> future = _getCurTime();
-                        await future.then((value) => _currentSec = value,
-                            onError: (e) => print(e));
-                        bottomSheetController = showModalBottomSheet(
-                            context: context,
-                            builder: _buildTimer,
-                            backgroundColor: Colors.transparent)
-                          ..whenComplete(() {
-                            timer.pauseTimer();
-                            setState(() {
-                              _bottomSheetOpened = false;
-                              count--;
-                            });
-                          });
-                        if (!timer.isRunning) {
-                          timer.startTimer();
-                        }
-                      }))
-            ]),
-        SizedBox(
-          height: 20.0,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "지금 $count명이",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold),
-                )),
-            Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "초집중하고 있어요",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold),
-                )),
-            SizedBox(height: 20.0),
-            Image.asset("assets/png/cat.png", height: 190),
-          ],
+    return Stack(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.black
+          ),
+          child: Image.asset("assets/png/star.png",fit: BoxFit.fill, width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height)
         ),
         Container(
-            padding: EdgeInsets.only(left: 15.0, right: 15.0),
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 15.0),
-                Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text("집중스터디 신청하기",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 20.0))),
-                SizedBox(height: 15.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2.4,
-                      height: MediaQuery.of(context).size.height / 3.3,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        child: InkWell(
-                          onTap: null,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8.0, vertical: 8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text("생성",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12.0))),
-                                Image.asset("assets/png/cat2.png", height: 70,),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text("나에게 맞는",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12.0)),
-                                      SizedBox(height: 8.0),
-                                      Text("집중스터디 만들기",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12.0)),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          padding:
+          EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0, bottom: 20.0),
+          //decoration: BoxDecoration(color: Colors.black),
+          child:
+          Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Image.asset("assets/png/timer_logo.png", height: 50),
+                  Container(
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width / 5.2,
+                      height: 30,
+                      child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0)),
+                          color: Color(0xFFB69FF7),
+                          child: Text(
+                            "집중 모드",
+                            style: TextStyle(
+                                fontSize: 10.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ),
-                        color: Color(0xFF4A4B5B),
-                      ),
-                    ),
+                          onPressed: () async {
+                            setState(() {
+                              count ++;
+                            });
+                            List<dynamic> result;
+                            Future<List<dynamic>> future1 = _getPastTime();
+                            await future1.then((value) => result = value,
+                                onError: (e) => print(e));
+                            for (int i = 0; i < result.length; i++) {
+                              print(result[i]["focusTime"]);
+                              times.add(result[i]["focusTime"]);
+                            }
+                            setState(() {
+                              _bottomSheetOpened = true;
+                            });
+                            Future<int> future = _getCurTime();
+                            await future.then((value) => _currentSec = value,
+                                onError: (e) => print(e));
+                            bottomSheetController = showModalBottomSheet(
+                                context: context,
+                                builder: _buildTimer,
+                                backgroundColor: Colors.transparent)
+                              ..whenComplete(() {
+                                timer.pauseTimer();
+                                setState(() {
+                                  _bottomSheetOpened = false;
+                                  count--;
+                                });
+                              });
+                            if (!timer.isRunning) {
+                              timer.startTimer();
+                            }
+                          }))
+                ]),
+            SizedBox(
+              height: 20.0,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "지금 $count명이",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
+                    )),
+                Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "초집중하고 있어요",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
+                    )),
+                SizedBox(height: 20.0),
+                Image.asset("assets/png/cat.png", height: 190),
+              ],
+            ),
+            Container(
+                padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 15.0),
                     Container(
-                      width: MediaQuery.of(context).size.width / 2.4,
-                      height: MediaQuery.of(context).size.height / 3.3,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text("참여",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12.0))),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Image.asset("assets/png/cat2.png", height: 50,),
-                                      Image.asset("assets/png/cat2.png", height: 50,),
-                                    ]
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Image.asset("assets/png/cat2.png", height: 50,),
-                                      Image.asset("assets/png/cat2.png", height: 50,),
-                                      Image.asset("assets/png/cat2.png", height: 50,),
-                                    ]
-                                  )
-                                ]
-                              ),
-                              Container(
-                                alignment: Alignment.centerLeft,
+                        alignment: Alignment.centerLeft,
+                        child: Text("집중스터디 신청하기",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 20.0))),
+                    SizedBox(height: 15.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2.4,
+                          height: MediaQuery.of(context).size.height / 3.3,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            child: InkWell(
+                              onTap: null,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 8.0),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Text("나에게 맞는",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12.0)),
-                                    SizedBox(height: 8.0),
-                                    Text("집중스터디 찾아보기",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12.0)),
+                                    Container(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text("생성",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12.0))),
+                                    Image.asset("assets/png/cat2.png", height: 70,),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text("나에게 맞는",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12.0)),
+                                          SizedBox(height: 8.0),
+                                          Text("집중스터디 만들기",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12.0)),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 ),
-                              )
-                            ],
+                              ),
+                            ),
+                            color: Color(0xFF4A4B5B),
                           ),
                         ),
-                        color: Color(0xFFA8A344),
-                      ),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2.4,
+                          height: MediaQuery.of(context).size.height / 3.3,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text("참여",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0))),
+                                  Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Image.asset("assets/png/cat2.png", height: 50,),
+                                              Image.asset("assets/png/cat2.png", height: 50,),
+                                            ]
+                                        ),
+                                        Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Image.asset("assets/png/cat2.png", height: 50,),
+                                              Image.asset("assets/png/cat2.png", height: 50,),
+                                              Image.asset("assets/png/cat2.png", height: 50,),
+                                            ]
+                                        )
+                                      ]
+                                  ),
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text("나에게 맞는",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12.0)),
+                                        SizedBox(height: 8.0),
+                                        Text("집중스터디 찾아보기",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12.0)),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            color: Color(0xFFA8A344),
+                          ),
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
-            ))
-      ]),
+                ))
+          ]),
+        )
+      ],
     );
   }
 

@@ -73,7 +73,7 @@ class TodoRegister {
       String nickname, String sex, String bornTime) async {
     const String url = "http://studyplanet.kr/member/register.do";
     String body =
-    '''{"email":"$email","pw":"$pw","phoneNumber":"$phoneNumber","sex":"$sex","bornTime":"$bornTime","nickname":"$nickname"}''';
+        '''{"email":"$email","pw":"$pw","phoneNumber":"$phoneNumber","sex":"$sex","bornTime":"$bornTime","nickname":"$nickname"}''';
 
     Map<String, String> header = {"Content-Type": "application/json"};
     var response = await http.post(url, body: body, headers: header);

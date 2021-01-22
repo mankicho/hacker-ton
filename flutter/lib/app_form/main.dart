@@ -7,7 +7,8 @@ import 'package:hackerton/Time/stopwatch.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MultiProvider(
+  runApp(
+      MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => PageNaviState()),
       ChangeNotifierProvider(create: (context) => FindState()),
