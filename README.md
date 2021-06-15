@@ -18,5 +18,4 @@
  
 
 [어플 화면]
-
-
+![image](https://user-images.githubusercontent.com/48756287/122001155-d97fba00-cdea-11eb-8aa2-a97bf5f6967a.png)
