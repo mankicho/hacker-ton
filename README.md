@@ -14,7 +14,7 @@
 
 
 ## 스택<br><br>
- 서버 : Java, Spring, MySQL 
+ 서버 : Java, Spring, MySQL <br>
  클라이언트 : Flutter
  
  
